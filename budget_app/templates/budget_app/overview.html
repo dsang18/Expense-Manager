@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="{% static 'overview.css' %}">
+</head>
+
+<body>
+    {% csrf_token %}
+
+
+    <nav class="navbar">
+        <ul>
+            <div class="logo">
+                <img src="{% static 'images/logo.jpg' %}" alt="">
+            </div>
+            <li class="item"><a href="/budget/{{pk}}/overview/">Overview </a> </li>
+            <li class="item"><a href="/budget/{{pk}}/home/">Home </a> </li>
+            <li class="item"><a href="/budget/{{pk}}/profile/">Profile</a> </li>
+        </ul>
+    </nav>
+
+    <div class="all-container">
+        <header>
+            <i class="fas fa-book-open"></i>
+            <h2 class="heading-primary">Overview</h2>
+        </header>
+
+
+        <div class="container">
+
+            <div class="graphs">
+
+                <div class="heading-title"></div>
+
+                <img class="images" src="data:image/png;base64,{{bar_plot|safe}}" alt="">
+
+                <div class="dialog-box">
+                    <div id="dialog" class="dialog">
+                        <p>First set budget for this month from profile section</p>
+                        <div class="btn">
+                            <button id="close-dialog">OK</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-expense">
+                    <button id="add-expense">Add Expense</button>
+                </div>
+
+            </div>
+
+
+            <div class="monthly-budget" id="month-budget">
+                <div id="monthly-budget">
+                    <div class="heading-title">
+                        <h2>Monthly Budget</h2>
+                        <h2></h2>
+                    </div>
+                    {% if graphic %}
+                    <img src="data:image/png;base64,{{graphic|safe}}" alt="">
+                    {% else %}
+                    <div class="heading-primary"><u> Set Budget for this month</u></div>
+
+                    {% endif %}
+                    <div class="budget-details-container">
+                        <h2 class="heading-primary">Budget:{{month_budget.0}}</h2>
+                        <h2 class="heading-primary">Spent:{{month_budget.2}}</h2>
+                        <h2 class="heading-primary">Balance:{{month_budget.1}} </h2>
+                    </div>
+                </div>
+            
+
+
+            <div class="add-expense-card visible transit" id="add-expense-card">
+                <div class="add-expense-head">
+                    <h2>ADD EXPENSE</h2>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="month-budget-heading">
+                        <label for="budget">Budget: {{month_budget.0}}</label>
+                        <a href="#"> <button id="add-expense-btn">Change</button></a>
+                    </div>
+                    <br>
+
+                    <label for="type"> Category</label>
+                    <select name="type" id="type" required>
+                        {% for i in expense_types %}
+                        <option value="{{i.0}}">{{i.0}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label for="date"> Date</label>
+                    <input type="date" name="date" id="date" required>
+
+                    <label for="amt"> Amount</label>
+                    <input type="text" name="amt" id="amt" placeholder="Amount" required>
+
+
+                    <div class="add-expense">
+                        <h2 id="message"></h2>
+                        <button id="add-expense-btn" onclick="form_validate()" name="add-new-expense">Add
+                            Expense</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+
+
+
+            <div class="expense-card-set">
+                <h2 class="heading-primary">Expenses made today</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="expense-container">
+                        {% if all_expenses %}
+                        {% for i in all_expenses %}
+                        <div class="expense-card">
+                            <div class="expense-details">
+                                <h3>Category: {{i.0}}</h3>
+                                <h3>Amount: {{i.1}}</h3>
+                                <h3>Time: {{i.2}}</h3>
+                            </div>
+                            <div class="delete">
+                                <button name="{{i.2}}"> <a href=""> <i class="fas fa-trash-alt"></i></a></button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <h2>No expenses Made today</h2>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Javascript -->
+    <script>
+
+        {% comment %} set default values {% endcomment %}
+
+        let date = document.getElementById('date')
+        date.value = new Date().toISOString().substr(0, 10);
+
+        let heading = document.querySelectorAll('.heading-title')
+        for (let i = 0; i < heading.length; i++) {
+            heading[i].innerHTML = "<h2>" + new Date().toLocaleString('default', { month: 'long' }) + " " + new Date().getFullYear() + "</h2>"
+        }
+
+
+        {% comment %} get all values {% endcomment %}
+        let add_expense = document.getElementById("add-expense");
+        let add_expense_btn = document.getElementById("add-expense-btn");
+        let monthly_budget = document.getElementById("monthly-budget")
+        let add_expense_card = document.getElementById('add-expense-card')
+        let dialog_box = document.getElementById('dialog');
+        let close_dialog = document.getElementById('close-dialog');
+
+        {% if not month_budget.0 %}
+        add_expense.addEventListener('click', function () {
+            dialog_box.classList.add('show')
+            dialog_box.classList.remove('hide')
+        });
+
+        close_dialog.addEventListener('click', function () {
+            dialog_box.classList.add('hide')
+            dialog_box.classList.remove('show')
+        });
+
+        {% else %}
+        add_expense.addEventListener('click', function () {
+            monthly_budget.classList.add('visible')
+            monthly_budget.classList.add('transit')
+            monthly_budget.style.display = 'none';
+            add_expense_card.classList.remove("visible")
+            setTimeout(function () {
+                add_expense_card.classList.remove('transit')
+                add_expense_card.addEventListener('transitioned', function (e) {
+                    add_expense_card.classList.add('visible');
+                })
+            }, 30);
+        });
+
+
+        add_expense_btn.addEventListener('click', function () {
+            if (form_validate() == 1) {
+                add_expense_card.classList.add('visible')
+                add_expense_card.classList.add('transit')
+                add_expense_card.style.display = 'none';
+                monthly_budget.classList.remove("visible")
+                setTimeout(function () {
+                    monthly_budget.classList.remove('transit')
+                    monthly_budget.addEventListener('transitioned', function (e) {
+                        monthly_budget.classList.add('visible');
+                    })
+                }, 30)
+            }
+        });
+        {% endif %}
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+            <ul>
+                <div class="logo">
+                    <img src="{% static 'images/logo.jpg' %}" alt="">
+                </div>
+                
+                <li class="item"><a href="/budget/{{pk}}/overview/">Overview </a> </li>
+                <li class="item"><a href="/budget/{{pk}}/home/">Home </a> </li>
+                <li class="item"><a href="/budget/{{pk}}/profile/">Profile</a> </li>
+            </ul>
+    </nav>
+
+    <div class="all-container">
+        <header>
+            <i class="fas fa-home"></i>
+            <h2 class="heading-primary">Home</h2>
+        </header>
+
+        <div class="container">
+            <div class="slides-container-with-btns">
+                <div class="wrapper1">
+                        <div class="prev-btn"><i class="fas fa-chevron-left"></i></div>
+                        <div class="slides-container">
+
+                                {% for i in monthly_plots %}
+                                    <div class="slide-image">
+                                        <img class="images" src="data:image/png;base64,{{i|safe}}" alt="">
+                                    </div>
+                                {% endfor %}
+                                
+                        </div>
+                        <div class="next-btn"><i class="fas fa-chevron-right"></i></div>
+                        <div class="navigation-dots"></div>
+                </div>
+            </div>
+        
+            
+            <div class="slides-container-with-btns">
+                <div class="prev-budget-btn"><i class="fas fa-chevron-left"></i></div>
+                <div class="wrapper2">
+                    <div class="budget-container">
+                        {% for stats,chart in monthly_details %}
+                            <div class="budget-image">
+                                <img class="images" src="data:image/png;base64,{{chart|safe}}" alt="">
+                                <div class="budget-details-container">
+                                    <h2 class="heading-primary">Budget:{{stats.0}}</h2>
+                                    <h2 class="heading-primary">Spent:{{stats.2}}</h2>
+                                    <h2 class="heading-primary">Balance:{{stats.1}} </h2>
+                                </div>
+                            </div> 
+                        {% endfor %}
+                    </div>
+                    <div class="next-budget-btn"><i class="fas fa-chevron-right"></i></div>
+                    <div class="budget-navigation-dots"></div>
+                </div>
+            </div>
+        
+        
+        <div class="expense-type-container">
+            <form method="POST">
+            <div class="add">
+                <h2 class="heading-primary">Expense Categories</h2>
+                <div class="new-cat">
+                     <div id="add-cat"><i class="fas fa-plus"></i></div> 
+                </div>
+            </div>
+                {% csrf_token %}
+                <div class="expense-cat-wrapper">
+                    <div class="expense-cat-card hide" id="hidden-card">
+                        <div class="expense-cat-details">
+                            <input type="text" value="" class="new-cat-input" name="cat-input" required>
+                            <div class="delete">
+                                    <button type="submit" name="add-category" id="add-new-cat-button">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    {% for i in expense_categories %}
+                        <div class="expense-cat-card">
+                            <div class="expense-cat-details">
+                                <input type="text" value="{{i.0}}" disabled>
+                                <div class="delete">
+                                        <button name="{{i.0}}"><a> <i class="fas fa-trash-alt"></i></a></button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+<script src="{% static 'home.js' %}"></script>
+</body>
+</html>

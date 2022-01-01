@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'profile.css'%}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'images/logo.jpg' %}" alt="">
+        </div>
+        
+            <ul>
+                <li class="item"><a href="/budget/{{pk}}/overview/">Overview </a> </li>
+                <li class="item"><a href="/budget/{{pk}}/home/">Home </a> </li>
+                <li class="item"><a href="/budget/{{pk}}/profile/">Profile</a> </li>
+            </ul>
+    </nav>
+    <div class="all-container">
+
+        <div class="container">
+            <div id="profile-card">
+
+                <div class="profile-logo">
+                    <header>
+                        <i class="fas fa-user-circle"></i>
+                    </header>
+                </div>
+
+                <div class="profile-details">
+                    <form  method="post" class="profile-form">
+                        {% csrf_token %}
+                        <div class="form-inputs">
+                            <label for="name">Full Name</label>
+                            <input class="inputs" type="text" name="name"  value="{{user_profile.1}}" disabled>
+                        </div>
+                        <div class="form-inputs">
+                            <label for="username">Username</label>
+                            <input class="inputs" type="text" name="username"  value="{{user_profile.4}}" disabled>
+                        </div>
+                        <div class="form-inputs">
+                            <label for="email-id">Email ID</label>
+                            <input class="inputs" type="email" name="email-id"  value="{{user_profile.2}}" disabled>
+                        </div>
+                        <div class="form-inputs">
+                            <label for="phone-no">Phone Number</label>
+                            <input class="inputs" type="tel" pattern="[6-9]{1}[0-9]{9}" name="phone-no"  value="{{user_profile.3}}" disabled>
+                        </div>
+                        <div class="form-inputs" id="password-input">
+                            <label for="password">Password</label>
+                            <input class="password-inp" type="password" name="password"  value="{{user_profile.5}}" disabled>
+                            <button id="change-password">Change</button>
+                            
+                        </div>
+                        <div class="form-inputs">
+                            <label for="name">budget for month of {{month_name}}</label>
+                            <input class="inputs" type="text" name="budget"  value="{{budget.0}}" disabled>
+                        </div>
+                        <div id="buttons">
+                            <button  id="update-profile" onclick="activate_input()">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let inputs = document.getElementsByClassName('inputs')
+        let update_profile_button = document.getElementById('buttons')
+        function activate_input(){
+            update_profile_button.innerHTML = '<button type="submit" id="update-profile" name="apply"> Apply Changes</button>';
+            for(i=0;i<inputs.length;i++){
+                inputs[i].disabled = false;
+                inputs[i].classList.add('enabled')
+            }
+        }
+    </script>
+</body>
+</html>

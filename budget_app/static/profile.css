@@ -1,0 +1,230 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+/* utilities */
+.heading-primary{
+    font-size: 1.7rem;
+    margin: 3px;
+    padding: 0px;
+}
+
+
+/* navigation properties */
+
+.navbar{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    top: 0px;
+    padding: 10px;
+    
+}
+
+.navbar::before{
+    display: flex;
+    content:"";
+    position: absolute;
+    background-color: rgb(16, 46, 71);
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.8;
+    top: 0px;
+    left: 0px;
+}
+.logo{
+    width: 5vw;
+}
+.logo img{
+    width: 3.5vw;
+    border-radius: 10px;
+}
+.navbar ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+
+.navbar ul li a{
+    color: white;
+    text-decoration: none;
+    margin: 16px;
+    font-size: 1.7rem;
+}
+
+/* header */
+header{
+    display: flex;
+    align-items: center;
+    padding: 3px ;
+    color:rgb(66, 83, 109);
+}
+
+header i{
+    font-size: 12rem;
+    margin: 10px;
+}
+
+
+/* all-container properties */
+.all-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    top: 0px;
+    margin-top: 5em;
+    
+}
+
+.all-container::before{
+    content: "";
+    width: 100%;
+    height: 80vh;
+    top: 0px;
+    margin-top: -5em;
+    position: absolute;
+    background: url(images/bg.jpg) no-repeat center center/cover;
+    opacity: 0.9;
+    z-index: -1;
+}
+
+/* profile-container */
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 85vw;
+    height: 100vh;
+
+}
+
+/* profile-card properties */
+#profile-card{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: absolute;
+    flex-direction: row;
+    width: 80%;
+    min-height: 70%;
+    max-height: fit-content;
+    border-radius: 10px;
+    background-color: rgb(210, 232, 246);
+    box-shadow: -5px -5px 20px rgba(3, 52, 71, 0.664), 5px 5px 20px rgba(3, 52, 71, 0.664);    
+
+}
+
+/* profile-details */
+.profile-details{
+    width: 70%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.profile-form{
+    width:100%;
+    height:80%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-evenly;
+}
+
+.form-inputs input{
+    font-size: 1.3rem;
+    border: none;
+    border-bottom: 2px solid black;
+    padding: 0px 50% 0.2rem 2rem;
+    text-align: -webkit-match-parent;
+    border-radius: 3px;
+    outline: none;
+}
+
+#password-input{
+    position: relative;
+}
+
+
+input[type="password"]{
+    list-style-type: disc;
+}
+
+.form-inputs label{
+    margin:3px;
+    display: inline-block;
+    width: 20rem;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+@keyframes enable-animation{
+    from{
+        background-color: whitesmoke;}
+    to{
+    background-color: rgba(165, 199, 228, 0.459);}
+}
+
+.enabled{
+    animation: enable-animation 1s forwards;
+}
+
+
+/* update-profile buttons */
+#buttons{
+    display:flex;
+    width: 100%;
+    position:relative;
+    align-items: flex-end;
+    justify-content: space-around;
+    margin: 2rem;
+}
+
+#update-profile, #change-password{
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    color:white;
+    background-color: rgba(4, 19, 68, 0.466);
+    border:none;
+    border-radius: 5px;
+}
+
+#update-profile:hover, #change-password:hover{
+    background-color: rgba(0, 0, 0, 0.336);
+}
+
+#change-password{
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    bottom: 0.3em;
+    text-align: center;
+    padding:5px;
+}
+
+#update-profile{
+    right:0px;
+    position:absolute;
+    bottom: 0px;
+
+}

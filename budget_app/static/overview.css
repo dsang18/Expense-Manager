@@ -1,0 +1,418 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+:root{
+    --primary: rgb(43, 59, 81, 1);
+    --secondary: rgba(85, 195, 238, 0.986);
+}
+
+/* utilities */
+.heading-primary{
+    font-size: 1.7rem;
+    padding: 0px;
+}
+
+/* navigation properties */
+.navbar{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    padding: 10px 0px 10px 0px;
+    
+}
+
+.navbar::before{
+    display: flex;
+    content:"";
+    position: absolute;
+    background-color: rgb(16, 46, 71);
+    width: 100%;
+    height:100%;
+    z-index: 0;
+    opacity: 0.8;
+    top: 0px;
+    left: 0px;
+}
+.logo{
+    width: 5vw;
+}
+.logo img{
+    width: 3.5vw;
+    border-radius: 10px;
+}
+.navbar ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    list-style-type: none;
+    width:40%;
+    z-index:1;
+}
+
+
+.navbar ul li a{
+    color: white;
+    text-decoration: none;
+    margin: 16px;
+    font-size: 1.7rem;
+}
+
+/* all-container properties */
+.all-container{
+    width:100%;
+    position: absolute;
+    background: linear-gradient(130deg, var(--primary), var(--secondary));
+    background-position: center;
+    background-size: cover;
+    height:100%;
+}
+
+
+
+/* header */
+header{
+    display: flex;
+    align-items: center;
+    padding: 3px ;
+}
+
+header i{
+    font-size: 1.4rem;
+    margin: 10px;
+    color: white;
+}
+
+header h2{
+    color: white;
+}
+
+/* container properties */
+.container{
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+   
+}
+
+.heading-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.graphs{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width:50%;
+    padding: 0.6rem;
+    position:relative;
+    background-color: rgba(210, 232, 246, 0.726);
+    border-radius: 1em;
+    border: 2px solid rgba(0, 0, 0, 0.637);
+    box-shadow:inset -5px -5px 10px rgb(126, 150, 169),inset 5px 5px 10px rgb(126, 150, 169);    
+
+}
+
+
+.monthly-budget{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    width:45%;
+    position:relative;
+    padding: 0.6rem;
+    border: 2px solid rgba(0, 0, 0, 0.637);
+    background-color: rgba(210, 232, 246, 0.726);
+    border-radius: 1em;
+    box-shadow:inset -5px -5px 10px rgb(126, 150, 169),inset 5px 5px 10px rgb(126, 150, 169);    
+}
+
+#monthly-budget{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: all 1s linear;
+    width: 100%;
+}
+
+.monthly-budget img{
+    width: 40vh;
+}
+
+.budget-details-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    background-color:rgb(210, 232, 246);
+    border-radius: 1em;
+    border: 1px solid black;
+    box-shadow:inset -5px -5px 10px rgb(126, 150, 169),inset 5px 5px 10px rgb(126, 150, 169);  
+}
+
+
+.add-expense{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+#add-expense{
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    color:white;
+    background-color: rgba(4, 19, 68, 0.466);
+    border:none;
+    border-radius: 5px;
+}
+
+#add-expense:hover{
+    background-color: rgba(0, 0, 0, 0.63);
+}
+.images{
+    width: 70vh;
+    height:45vh;
+    position:relative;
+}
+
+
+#add-expense-card{
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin:0px;
+    width: 80%;
+    height: 80%;
+    background-color: rgb(94 177 222 / 51%);
+    box-shadow: 10px 10px 10px rgba(42, 62, 99, 0.74);
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 1s linear;
+}
+
+.visible{
+    display: none;
+}
+.transit{
+    opacity: 0;
+}
+
+
+.add-expense-card input, select{
+    width: 90%;
+    border:none;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 10px;
+    outline: none;
+    height: 1.5rem;
+    border-radius: 5px;
+}
+
+.month-budget-heading{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#add-expense-btn{
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    color:white;
+    background-color: rgba(4, 19, 68, 0.466);
+    border:none;
+    border-radius: 5px;
+}
+
+#add-expense-btn:hover{
+    background-color: rgba(0, 0, 0, 0.63);
+}
+
+.add-expense-head{
+    margin: 10px;
+    border:none;
+    border-bottom: 2px solid black;
+    
+
+}
+
+.add-expense-card label{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+
+
+.expense-card-set{
+    border: 1px solid black;
+    box-shadow:inset -5px -5px 10px rgb(126, 150, 169),inset 5px 5px 10px rgb(126, 150, 169);    
+    top: 10px;
+    position:relative;
+    width:96.5%;
+    padding: 5px;
+    border-radius: 1em;
+    background-color:rgba(210, 232, 246, 0.726);
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+.expense-container{
+    display: flex;
+    align-items:center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+
+.expense-card{
+    display: flex;
+    background-color: rgba(13, 36, 78, 0.514);
+    box-shadow: 5px 5px 10px rgb(7, 29, 70);
+    color: rgb(234 232 232);
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    max-height: fit-content;
+    margin: 20px 10px;
+    padding: 5px;
+    min-width: 12vw;
+}
+
+
+.expense-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete i{
+    font-size: 1.3rem;
+    color: rgb(19, 8, 78);
+}
+
+.expense-card h3{
+    font-size: 1.3em;
+    text-align: center;
+}
+
+::-webkit-scrollbar{
+    height: 0.8rem;
+}
+
+::-webkit-scrollbar-track{
+    background: rgb(180, 178, 178);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: rgba(60, 71, 75, 0.363);
+    border-radius: 5px;
+}
+
+.dialog-box{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px;
+    margin-top: -100px;
+}
+
+.dialog{
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 30%;
+    font-size: 1.2rem;
+    padding: 10px;
+    background-color: rgb(228 234 242 / 76%);
+    border-radius: 5px;
+    border: 2px solid rgb(19, 8, 78);
+    opacity: 0;
+    box-shadow:inset -5px -5px 10px rgba(80, 82, 83, 0.664),inset 5px 5px 10px rgba(80, 82, 83, 0.664);    
+    
+}
+
+
+
+@keyframes fadeIn{
+    from {opacity:0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeOut {
+    from {opacity:1;}
+    to {opacity:0;}
+}
+
+.show{
+    visibility: visible;
+    animation: 1s fadeIn forwards;
+}
+
+.hide{
+    visibility: hidden;
+    animation: 3s fadeOut forwards;
+}
+
+#dialog p{
+    text-align: center; 
+}
+
+#dialog #close-dialog{
+    padding: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    color:white;
+    background-color: rgba(4, 19, 68, 0.466);
+    border:none;
+    border-radius: 5px;
+}
+
+
+@media only screen and (max-width:1100px) {
+    .container{
+       flex-direction: row;
+       align-items: center;
+       justify-content: center;
+       width:100%;
+       height:100%;
+    }
+    
+    .graphs{
+        width:90%;
+    }
+    
+    .monthly-budget{
+        width:90%;
+    }
+    
+    .expense-card-set{
+        width:90%;
+    }
+    .images{
+        width:70%;
+        height:70%;
+    }
+}
