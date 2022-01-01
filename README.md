@@ -1,7 +1,8 @@
 # Expense-Manager
 A simple web app  using django, html and css.
+
 Prerequisites : Django , Python.
-Libraries : bcryp
+Libraries : bcrypt
 # Steps:
 
 Step 1] Download the file and save it in a folder            
